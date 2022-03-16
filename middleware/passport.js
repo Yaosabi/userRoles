@@ -2,7 +2,9 @@ const passport = require('passport')
 const {Strategy} = require('passport-local').Strategy;
 const {User, Role, Permission} = require('../models');
 const md5 = require('md5')
-
+var logger = require('morgan');
+const session = require('express-session');
+var indexRouter = require('./routes/index');
 
 async function verifyUser(username, password, done) {
     //fetch from database
@@ -59,3 +61,5 @@ passport.deserializeUser(async function(user,done){
         return done(null, userModel);
     });
 });
+
+module.exports.passport = passport;
